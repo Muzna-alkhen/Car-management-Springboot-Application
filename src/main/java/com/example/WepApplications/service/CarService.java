@@ -1,7 +1,6 @@
 package com.example.WepApplications.service;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.Optional;
 
 import com.example.WepApplications.dao.CarRepository;
@@ -40,6 +39,33 @@ public class CarService {
         List<Car> list = new ArrayList<>();
         carRepository.findAll().iterator().forEachRemaining(list::add);
         return list;
+    }
+
+    public Car update(CarDto carDto, Long id) {
+        Optional<Car> car = carRepository.findById(id);
+        if(car.isPresent())
+        {
+
+            Car updatedCar = car.get();
+            updatedCar.setName(carDto.getName());
+            updatedCar.setSeats(carDto.getSeats());
+            updatedCar.setPrice(carDto.getPrice());
+            updatedCar = carRepository.save(updatedCar);
+
+            return updatedCar;
+        } else {
+
+
+            return null;
+        }
+    }
+
+    public List<Car> findAllUnSoledCar()
+    {
+        List<Car> list = new ArrayList<>();
+        carRepository.findBySoldPrice(0).iterator().forEachRemaining(list::add);
+        return list;
+
     }
 
 

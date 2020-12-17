@@ -24,7 +24,7 @@ public class Car {
     private Date soldDate;
 
     @Column
-    private float SoldPrice;
+    private float soldPrice;
 
     @Column
     private String customerName;
@@ -73,11 +73,11 @@ public class Car {
     }
 
     public float getSoldPrice() {
-        return SoldPrice;
+        return soldPrice;
     }
 
     public void setSoldPrice(float soldPrice) {
-        SoldPrice = soldPrice;
+        this.soldPrice = soldPrice;
     }
 
     public String getCustomerName() {
