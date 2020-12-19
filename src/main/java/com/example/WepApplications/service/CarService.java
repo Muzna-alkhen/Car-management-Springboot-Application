@@ -1,4 +1,5 @@
 package com.example.WepApplications.service;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -8,6 +9,9 @@ import com.example.WepApplications.dao.ParameterRepository;
 import com.example.WepApplications.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+
 @Service
 public class CarService {
     @Autowired
@@ -47,9 +51,12 @@ public class CarService {
         {
 
             Car updatedCar = car.get();
-            updatedCar.setName(carDto.getName());
-            updatedCar.setSeats(carDto.getSeats());
-            updatedCar.setPrice(carDto.getPrice());
+            if ( ! (carDto.getName().equals("")))
+            {updatedCar.setName(carDto.getName());}
+            if (carDto.getSeats() != 0 )
+            { updatedCar.setSeats(carDto.getSeats());}
+            if (carDto.getPrice() != 0)
+            {updatedCar.setPrice(carDto.getPrice());}
             updatedCar = carRepository.save(updatedCar);
 
             return updatedCar;
@@ -59,6 +66,39 @@ public class CarService {
             return null;
         }
     }
+    @Transactional
+    public Car sell(SellDto sellDto, Long id) throws ParseException {
+        Optional<Car> car = carRepository.findById(id);
+        if(car.isPresent())
+        {
+
+            Car soldCar = car.get();
+            soldCar.setCustomerName(sellDto.getCustomerName());
+            soldCar.setSoldDate(sellDto.getSoldDate());
+            if (sellDto.getSoldPrice() == 0)
+            {
+                Parameter parameter =parameterRepository.findByK("ratio");
+                int defaultRatio= parameter.getValue();
+                soldCar.setSoldPrice( (soldCar.getPrice() )   *       (defaultRatio)    );
+
+            }
+            else
+            {
+                soldCar.setSoldPrice(sellDto.getSoldPrice());
+
+            }
+            soldCar = carRepository.save(soldCar);
+
+            return soldCar;
+        } else {
+
+
+            return null;
+        }
+
+
+
+    }
 
     public List<Car> findAllUnSoledCar()
     {
@@ -67,6 +107,24 @@ public class CarService {
         return list;
 
     }
+
+    public Car delete(Long id) {
+        Optional<Car> car = carRepository.findById(id);
+        Car deletedCar = car.get();
+
+        if(car.isPresent())
+        {
+            carRepository.deleteById(id);
+            return deletedCar;
+        }
+        else
+        {
+            return null;
+        }
+    }
+
+
+
 
 
 

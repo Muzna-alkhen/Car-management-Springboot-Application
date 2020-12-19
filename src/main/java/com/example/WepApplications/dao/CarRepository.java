@@ -10,5 +10,5 @@ import java.util.List;
 
 @Repository
 public interface CarRepository extends CrudRepository<Car, Long> {
-    List<Car> findBySoldPrice(@Param("soldPrice") int soldPrice);
+    List<Car> findBySoldPrice(@Param("soldPrice") float soldPrice);
 }
