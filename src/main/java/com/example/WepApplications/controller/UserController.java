@@ -3,10 +3,9 @@ package com.example.WepApplications.controller;
 
 
 import com.example.WepApplications.model.User;
-import com.example.WepApplications.model.UserDto;
+import com.example.WepApplications.dto.UserDto;
 import com.example.WepApplications.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 

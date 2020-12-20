@@ -1,7 +1,7 @@
 package com.example.WepApplications.controller;
 import com.example.WepApplications.model.Car;
-import com.example.WepApplications.model.CarDto;
-import com.example.WepApplications.model.SellDto;
+import com.example.WepApplications.dto.CarDto;
+import com.example.WepApplications.dto.SellDto;
 import com.example.WepApplications.service.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -53,21 +53,6 @@ public class CarController {
     @RequestMapping(value="/delete/{id}", method = RequestMethod.DELETE)
     public Car deleteCar( @PathVariable Long id){  return carService.delete(id);
     }
-/*
-    @Transactional
-    @RequestMapping(value="/sell/{id}", method = RequestMethod.POST)
-    public Car sellCar(@RequestBody Map<String,String> body, @PathVariable Long id){  return carService.sell(body,id);
-    }
 
-
-
-    @RequestMapping(value="/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Car> getCarById(@PathVariable("id") Long id)
-            {
-        Car entity = carService.getCarById(id);
-        return new ResponseEntity<Car>(entity, new HttpHeaders(), HttpStatus.OK);
-    }
-
-*/
 
     }

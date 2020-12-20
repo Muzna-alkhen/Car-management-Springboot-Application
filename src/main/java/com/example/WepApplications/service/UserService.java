@@ -1,5 +1,5 @@
 package com.example.WepApplications.service;
-import com.example.WepApplications.model.UserDto;
+import com.example.WepApplications.dto.UserDto;
 
 import com.example.WepApplications.model.User;
 

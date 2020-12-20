@@ -3,8 +3,8 @@ package com.example.WepApplications.controller;
 
 
 import com.example.WepApplications.config.TokenProvider;
-import com.example.WepApplications.model.AuthToken;
-import com.example.WepApplications.model.LoginUser;
+import com.example.WepApplications.dao.AuthToken;
+import com.example.WepApplications.dao.LoginUser;
 import com.example.WepApplications.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

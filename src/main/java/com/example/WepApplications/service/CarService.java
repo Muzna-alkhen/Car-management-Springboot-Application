@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import com.example.WepApplications.aspect.Log;
+import com.example.WepApplications.dto.CarDto;
+import com.example.WepApplications.dto.SellDto;
 import com.example.WepApplications.dao.CarRepository;
 import com.example.WepApplications.dao.ParameterRepository;
 import com.example.WepApplications.model.*;
@@ -18,8 +21,10 @@ public class CarService {
     CarRepository carRepository;
     @Autowired
     ParameterRepository parameterRepository;
+    @Autowired
+    ParameterService parameterService;
 
-
+    @Log
     public Car save(CarDto carDto) {
         Car car = new Car();
         car.setName(carDto.getName());
@@ -27,8 +32,8 @@ public class CarService {
         int seats = carDto.getSeats();
         if (seats == 0)
         {
-            Parameter parameter =parameterRepository.findByK("seats");
-            int defaultSeats = parameter.getValue();
+
+            int defaultSeats = parameterService.findSeats();
             car.setSeats(defaultSeats);
 
         }
@@ -39,12 +44,14 @@ public class CarService {
         return carRepository.save(car);
     }
 
+    @Log
     public List<Car> findAll() {
         List<Car> list = new ArrayList<>();
         carRepository.findAll().iterator().forEachRemaining(list::add);
         return list;
     }
 
+    @Log
     public Car update(CarDto carDto, Long id) {
         Optional<Car> car = carRepository.findById(id);
         if(car.isPresent())
@@ -66,6 +73,7 @@ public class CarService {
             return null;
         }
     }
+    @Log
     @Transactional
     public Car sell(SellDto sellDto, Long id) throws ParseException {
         Optional<Car> car = carRepository.findById(id);
@@ -77,8 +85,8 @@ public class CarService {
             soldCar.setSoldDate(sellDto.getSoldDate());
             if (sellDto.getSoldPrice() == 0)
             {
-                Parameter parameter =parameterRepository.findByK("ratio");
-                int defaultRatio= parameter.getValue();
+
+                int defaultRatio= parameterService.findRatio();
                 soldCar.setSoldPrice( (soldCar.getPrice() )   *       (defaultRatio)    );
 
             }
@@ -107,7 +115,7 @@ public class CarService {
         return list;
 
     }
-
+    @Log
     public Car delete(Long id) {
         Optional<Car> car = carRepository.findById(id);
         Car deletedCar = car.get();

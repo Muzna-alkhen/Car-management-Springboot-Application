@@ -32,6 +32,7 @@ public class Parameter {
         this.k = k;
     }
 
+
     public int getValue() {
         return value;
     }

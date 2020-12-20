@@ -1,4 +1,4 @@
-package com.example.WepApplications.model;
+package com.example.WepApplications.dao;
 
 
 public class AuthToken {

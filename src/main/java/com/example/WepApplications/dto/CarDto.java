@@ -1,6 +1,4 @@
-package com.example.WepApplications.model;
-
-import javax.persistence.Column;
+package com.example.WepApplications.dto;
 
 public class CarDto {
     private String name;
