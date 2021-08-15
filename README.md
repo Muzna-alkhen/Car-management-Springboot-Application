@@ -6,7 +6,7 @@ The application includes features for some parts:
 
 1- Authentication and Authorization (using JWT).
 
-2- CRUD operation for car entity (ORM & Hibernate).
+2- CRUD operations for car entity (ORM & Hibernate).
 
 3- Batch Processing throw message queue with application B (rabbitMQ).
 
